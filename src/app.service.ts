@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'node:fs';
 import { Injectable } from '@nestjs/common';
 import { createCanvas, registerFont } from 'canvas';
 
@@ -21,7 +22,14 @@ export class AppService {
   private readonly PADDIND_Y = 140;
 
   constructor() {
-    registerFont(path.join(process.cwd(), 'assets/fonts/Poppins-Regular.ttf'), {
+    const poppinsTtf = path.join(
+      process.cwd(),
+      'assets/fonts/Poppins-Regular.ttf',
+    );
+
+    fs.readFileSync(poppinsTtf);
+
+    registerFont(poppinsTtf, {
       family: 'Poppins',
     });
   }
