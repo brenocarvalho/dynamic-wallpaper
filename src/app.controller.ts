@@ -6,6 +6,11 @@ import type { Response } from 'express';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @Get()
+  health(): string {
+    return 'OK';
+  }
+
   @Get('generate')
   generateWallpaper(@Res() response: Response): any {
     const buffer = this.appService.generateWallpaper();

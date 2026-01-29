@@ -1,5 +1,6 @@
+import path from 'path';
 import { Injectable } from '@nestjs/common';
-import { createCanvas } from 'canvas';
+import { createCanvas, registerFont } from 'canvas';
 
 @Injectable()
 export class AppService {
@@ -18,6 +19,12 @@ export class AppService {
 
   private readonly PADDIND_X = 0;
   private readonly PADDIND_Y = 140;
+
+  constructor() {
+    registerFont(path.join(process.cwd(), 'assets/fonts/Poppins-regular.ttf'), {
+      family: 'Poppins',
+    });
+  }
 
   public generateWallpaper(): Buffer {
     const yearDays = this.getDaysInYear();
