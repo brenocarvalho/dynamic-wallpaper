@@ -1,6 +1,6 @@
 {
   "functions": {
-    "**/*.js": {
+    "api/**/*.ts": {
       "includeFiles": "assets/fonts/**"
     }
   }
