@@ -94,7 +94,7 @@ export class AppService {
     context.fillText(
       text,
       (canvas.width - textMetrics.width) / 2,
-      canvas.height - 210,
+      canvas.height - 215,
     );
 
     return canvas.toBuffer('image/png');
