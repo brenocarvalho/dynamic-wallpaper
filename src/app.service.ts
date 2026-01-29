@@ -2,6 +2,7 @@ import path from 'path';
 import fs from 'node:fs';
 import { Injectable } from '@nestjs/common';
 import { createCanvas, registerFont } from 'canvas';
+import { DateTime, Settings } from 'luxon';
 
 @Injectable()
 export class AppService {
@@ -22,6 +23,8 @@ export class AppService {
   private readonly PADDIND_Y = 140;
 
   constructor() {
+    Settings.defaultZone = 'America/Sao_Paulo';
+
     const poppinsTtf = path.join(
       process.cwd(),
       'assets/fonts/Poppins-Regular.ttf',
@@ -81,8 +84,8 @@ export class AppService {
       horizontal++;
     }
 
-    const percentage = (((daysPassed + 1) / yearDays) * 100).toFixed(1) + '%';
-    const daysLeft = `${yearDays - daysPassed + 1}d left`;
+    const percentage = ((daysPassed / yearDays) * 100).toFixed(1) + '%';
+    const daysLeft = `${yearDays - daysPassed}d left`;
 
     const text = `${daysLeft} • ${percentage}`;
 
@@ -112,20 +115,11 @@ export class AppService {
   }
 
   private daysPassedInYear(): number {
-    const today = new Date();
-
-    const startOfYear = new Date(today.getFullYear(), 0, 1);
-    const diff = today.getTime() - startOfYear.getTime();
-
-    return Math.floor(diff / 86400000) + 1;
-  }
-
-  private isLeapYear(year: number): boolean {
-    return new Date(year, 1, 29).getMonth() === 1;
+    return DateTime.now().ordinal;
   }
 
   private getDaysInYear(): number {
-    const year = new Date().getFullYear();
-    return this.isLeapYear(year) ? 366 : 365;
+    const year = DateTime.now().year;
+    return DateTime.local(year).daysInYear;
   }
 }
