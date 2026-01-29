@@ -21,7 +21,7 @@ export class AppService {
   private readonly PADDIND_Y = 140;
 
   constructor() {
-    registerFont(path.join(process.cwd(), 'assets/fonts/Poppins-regular.ttf'), {
+    registerFont(path.join(process.cwd(), 'assets/fonts/Poppins-Regular.ttf'), {
       family: 'Poppins',
     });
   }
